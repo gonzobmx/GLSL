@@ -22,4 +22,17 @@
 }
 
 
-//----------------GRADIENT----------------//
+//----------------TEXTURE----------------//
+
+{
+    vec2 xy = fragCoord.xy / iResolution.xy;//Condensing this into one line
+    vec4 solidBlack = vec4(0,0.0,0.0,1);
+    //Get the pixel at xy from iChannel0
+    vec4 texColor = texture(iChannel0,xy*(1.0))*(0,0,0,xy.y); // Mulitply coordinates to achive tiling and to make gradient
+//    texColor = (texColor.r,texColor.g,texColor.b, xy.x);
+    
+    fragColor = texColor;
+}
+
+ 
+
