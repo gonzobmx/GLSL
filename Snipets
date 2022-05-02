@@ -34,5 +34,19 @@
     fragColor = texColor;
 }
 
- 
+//----------------Time----------------//
+vec4 texColor = vec4(abs(sin(iTime))); // multiplying time to color
 
+
+//---------------Step----------------//
+
+{
+  vec2 uv = fragCoord/iResolution.xy; // <0,1>
+
+  vec3 col = vec3(0); // start with black
+  
+  col = vec3(step(abs(cos(iTime*0.1))*0.5, uv.x)); // make the right half of the canvas white
+
+  // Output to screen
+  fragColor = vec4(col,1.0);
+}
