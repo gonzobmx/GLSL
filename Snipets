@@ -200,3 +200,38 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
   fragColor = vec4(col,1.0);
 }
 
+
+//---------------Smooth step ----------------//
+//----------------------------------------------//
+float sdSquare(vec2 uv, float size, vec2 offset) {
+  float x = uv.x - offset.x;
+  float y = uv.y - offset.y;
+
+  return max(abs(x), abs(y)) - size;
+}
+
+vec3 drawScene(vec2 uv) {
+  vec3 col = vec3(1.);
+  float d1 = sdSquare(uv, 0.1, vec2(0., 0.));
+
+
+  float res; // result
+  res = d1;
+
+  res = smoothstep(0., 0.02, res); // antialias entire result
+
+  col = mix(vec3(1,0,0), col, res);
+  return col;
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+  vec2 uv = fragCoord/iResolution.xy; // <0, 1>
+  uv -= 0.5; // <-0.5,0.5>
+  uv.x *= iResolution.x/iResolution.y; // fix aspect ratio
+
+  vec3 col = drawScene(uv);
+
+  fragColor = vec4(col,1.0); // Output to screen
+}
+
