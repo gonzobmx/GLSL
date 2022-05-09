@@ -1,13 +1,29 @@
+// https://inspirnathan.com/posts/52-shadertoy-tutorial-part-6/
+
+//-- add global variables in glsl - constant 
 const int MAX_MARCHING_STEPS = 255;
 const float MIN_DIST = 0.0;
 const float MAX_DIST = 100.0;
 const float PRECISION = 0.001;
 
+//-- if I will use #define instad constant
+//#define MAX_MARCHING_STEPS 255
+//#define MIN_DIST 0.0
+//#define MAX_DIST 100.0
+//#define PRECISION 0.001
+
+// standard sdf sphere
 float sdSphere(vec3 p, float r )
 {
   vec3 offset = vec3(0, 0, -2);
-  return length(p - offset) - r;
+  return length(p - offset) - r; // p is the test point and r is the radius of the sphere
 }
+
+//-- raymarch function 
+// vec3 ro - camera position
+// vec3 rd - ray direction
+// vec d = distance from marching algo.
+// vec3 p - point 
 
 float rayMarch(vec3 ro, vec3 rd, float start, float end) {
   float depth = start;
